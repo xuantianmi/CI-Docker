@@ -1,0 +1,7 @@
+# jenkins 最新稳定版最为基础镜像
+FROM jenkins/jenkins:lts
+
+# 将账户改为 root，避免后面不必要的权限问题；
+USER root
+
+# docker build -t ml_jenkins -f Dockerfile-jenkins .

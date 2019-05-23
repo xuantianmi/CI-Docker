@@ -1,0 +1,21 @@
+# docker-compose可以同时启动多个镜像
+version: "3"
+services:
+ jenkins:
+  build: ""
+  image: ml_mvn #ml_jenkins+maven=ml_mvn
+  ports:
+    - "8090:8080"
+    - "50000:50000"
+  container_name: ml_jenkins
+# 挂载三个宿主机的目录到容器内，第一个 jenkins_home 是为了对容器内 jenkins 的所有改动做数据持久化。
+#
+#  让容器内的 jenkins 调用并操作容器外的 docker
+#  复用宿主机的maven本地仓库
+  volumes:
+    - "/private/var/jenkins_home:/var/jenkins_home"
+    - "/var/run/docker.sock:/var/run/docker.sock"
+    - "/usr/local/bin/docker:/usr/bin/docker"
+    - "/Users/dora/.m2/repository:/usr/share/maven/ref/repository"
+
+# docker-compose up -d
