@@ -59,6 +59,7 @@ Restart SSH Service.
     && cd /var/jenkins_home/workspace/cidocker \
     && mvn package docker:build \
     && docker run -d --name cidocker -p 8080:8080 -t phoenix/spring-boot-docker -v /var/jenkins_home/workspace/node:/home/project cidocker    
+NOTE：SSH登录后只能使用/usr/bin中的命令，所以此处先支持登录用户的profile，以确保mvn／docker等可以找到
 ```
 - 验证
 ```
