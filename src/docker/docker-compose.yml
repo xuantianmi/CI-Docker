@@ -9,7 +9,7 @@ services:
     - "50000:50000"
   container_name: ml_jenkins
 # 挂载三个宿主机的目录到容器内，第一个 jenkins_home 是为了对容器内 jenkins 的所有改动做数据持久化。
-#
+#  TODO:docker本地仓库是否也是共享的？如何实现的？
 #  让容器内的 jenkins 调用并操作容器外的 docker
 #  复用宿主机的maven本地仓库
   volumes:

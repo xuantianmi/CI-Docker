@@ -28,4 +28,4 @@ COPY settings-docker.xml /usr/share/maven/ref/
 #ENTRYPOINT ["/usr/local/bin/mvn-entrypoint.sh"]
 
 # 注意：无-i参数bash命令时没有反馈(docker build -t ml_mvn -f Dockerfile-maven .)
-# docker build -it ml_mvn -f Dockerfile-maven .
+# docker build -t ml_mvn -f Dockerfile-maven .

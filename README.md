@@ -18,6 +18,7 @@ docker ps -a
 ```
 
 ### 阶段2 Jenkins部署并执行
+注意：Jenkins（持续集成服务器）中Publish Over SSH中的"Exec command"（包括mvn，docker等），只能在宿主机（构建服务器）上进行的构建。
 - 在宿主机上安全Docker
 - 在宿主机上创建目录，并对Docker共享此卷，以便jenkins应用运行时读写文件:
 ```
@@ -47,6 +48,24 @@ $ ssh-copy-id -i ~/.ssh/id_rsa.pub <username>@<host>
 配置文件为/etc/ssh/sshd_config
 Restart SSH Service.
 添加私钥:jenkins首页，系统管理 -> 系统设置 -> 下拉，找到Publish over SSH，填写Key 和 SSH Server -> 保存
+```
+- Jenkins项目配置
+```
+首先，新建一个任务。填写项目名称。
+构建环境：选择Send files or execute commands over SSH after the build runs，选择服务器，以及添加Exec command。
+. ~/.bash_profile  \
+    && docker stop cidocker || True \
+    && docker rm cidocker || True  \
+    && cd /var/jenkins_home/workspace/cidocker \
+    && mvn package docker:build \
+    && docker run -d --name cidocker -p 8080:8080 -t phoenix/spring-boot-docker -v /var/jenkins_home/workspace/node:/home/project cidocker    
+```
+- 验证
+```
+宿主机上
+1. docker ps, 看到phoenix/spring-boot-docker已经启动
+2. 访问 http://localhost:8080, 即可看到
+
 ```
 
 ## 参考

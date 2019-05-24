@@ -6,3 +6,8 @@ VOLUME /tmp
 ADD spring-boot-docker-1.0.jar app.jar
 # 为了缩短 Tomcat 的启动时间，添加java.security.egd的系统属性指向/dev/urandom
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+
+
+# mvn package docker:build
+# 对应pom.xml中的docker-maven-plugin配置, 及application.properties
+# docker run -d --name cidocker -p 8080:8080 -t phoenix/spring-boot-docker
